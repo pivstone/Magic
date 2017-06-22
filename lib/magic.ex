@@ -26,9 +26,8 @@ defmodule Magic do
   {:ok, ["123"]}
 
   iex> import Magic
-  iex> ~x(. ls)c
-  {:ok, ["README.md", "_build", "config", "lib", "magic.iml", "mix.exs",
-                     "test"]}
+  iex> ~x(./lib ls)c
+  {:ok, ["magic.ex"]}
 
   c = CD, 在指定路径执行命令
 
