@@ -1,6 +1,6 @@
 # Magic
 
-**TODO: Add description**
+Some Helper For Elixir Port
 
 ## Installation
 
