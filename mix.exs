@@ -46,7 +46,7 @@ defmodule Magic.Mixfile do
 
   defp package do
     [
-      name: Magic,
+      name: :magic,
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Ray Wang(pivstone@gmail.com)"],
       licenses: ["MIT licenses"],
