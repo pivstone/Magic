@@ -9,7 +9,7 @@ by adding `magic` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:magic, "~> 0.1.0"}]
+  [{:magic, "~> 0.2.0"}]
 end
 ```
 
