@@ -1,6 +1,6 @@
 defmodule Shotgun do
   @moduledoc """
-  The `Shotgun` provides function to found and execute IoC moudles
+  The `Shotgun` is a IoC Helper. It provides function to found and execute moudles
   """
   use GenServer
 
