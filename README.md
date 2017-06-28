@@ -1,5 +1,9 @@
 # Magic
 
+
+[![Build Status](https://travis-ci.org/pivstone/Magic.svg?branch=master)](https://travis-ci.org/pivstone/Magic)
+[![Coverage Status](https://coveralls.io/repos/github/pivstone/Magic/badge.svg?branch=master)](https://coveralls.io/github/pivstone/Magic?branch=master)
+
 Some Helper For Elixir Port
 
 ## Installation
