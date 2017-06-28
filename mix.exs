@@ -3,7 +3,7 @@ defmodule Magic.Mixfile do
 
   def project do
     [app: :magic,
-     version: "0.2.0",
+     version: "0.3.0",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -19,7 +19,8 @@ defmodule Magic.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [mod: {Magic.App, []},
+     extra_applications: [:logger]]
   end
 
   # Dependencies can be Hex packages:
