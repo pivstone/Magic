@@ -4,7 +4,7 @@ defmodule Shotgun do
   """
   use GenServer
 
-  def start_link(_) do
+  def start_link do
     GenServer.start_link(__MODULE__, %{}, name: :shotgun)
   end
 
@@ -42,7 +42,7 @@ defmodule Shotgun do
        not String.starts_with?(Atom.to_string(x), "elixir_compiler")
      end)
     |> Enum.map(fn x ->
-      :erlang.get_module_info(x)
+      apply(x, :module_info, [])
      end)
     |> Enum.filter(fn x->
       match(x, name)
