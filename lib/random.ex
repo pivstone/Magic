@@ -16,7 +16,7 @@ defmodule Random do
 
   """
   @spec random :: String.t
-  def random, do: random(16)
+  def random, do: random 16
 
   @doc """
   Random generate a specifc length string

@@ -11,7 +11,7 @@ defmodule Magic.App do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Shotgun
-      supervisor(Shotgun,[]),
+      supervisor(Shotgun, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

@@ -44,6 +44,17 @@ defmodule MagicTest do
     assert_receive {_, {:exit_status, 127}}
   end
 
+
+  test "sigil_q undenfied cmd" do
+    assert {:error, %ErlangError{original: :enoent}} = ~q(. abcd)c
+  end
+
+  test "sigil_x undenfied cmd" do
+    assert_raise ErlangError, "erlang error: :enoent", fn ->
+       ~x(. abcd)
+    end
+  end
+
   test "sigil_x with unknow mod" do
     assert_raise ArgumentError, "modifier must be one of: c, s", fn ->
       ~x(echo 123)d
