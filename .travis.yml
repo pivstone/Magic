@@ -9,16 +9,3 @@ otp_release:
   - 19.0
 
 script: mix coveralls.travis
-
-
-jobs:
-  include:
-    - stage: deploy
-      script: skip
-      deploy:
-        provider: script
-        script: "bash -c 'source <(curl -s https://raw.githubusercontent.com/zotonic/hexpub/master/hexpub.sh)'"
-        skip_cleanup: true
-        on:
-          tags: true
-          all_branches: true
