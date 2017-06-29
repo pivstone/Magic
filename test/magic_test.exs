@@ -31,4 +31,22 @@ defmodule MagicTest do
     assert_receive {_, {:data, "123\n"}}
     assert_receive {_, {:exit_status, 0}}
   end
+
+  test "sigil_b with cd" do
+    ~b(. ls)c
+    assert_receive {_, {:data, "LICENSE\nREADME.md\n_build\nconfig\ndeps\ndoc\nlib\nmagic.iml\nmix.exs\nmix.lock\ntest\n"}}
+    assert_receive {_, {:exit_status, 0}}
+  end
+
+  test "sigil_b undenfied cmd" do
+    ~b(. abcd)c
+    assert_receive {_, {:data, "sh: line 0: exec: abcd: not found\n"}}
+    assert_receive {_, {:exit_status, 127}}
+  end
+
+  test "sigil_x with unknow mod" do
+    assert_raise ArgumentError, "modifier must be one of: c, s", fn ->
+      ~x(echo 123)d
+    end
+  end
 end

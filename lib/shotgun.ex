@@ -39,14 +39,14 @@ defmodule Shotgun do
   defp seek(name) do
     :erlang.loaded()
     |> Enum.filter(fn x->
-       not String.starts_with?(Atom.to_string(x), "elixir_compiler")
+      not String.starts_with?(Atom.to_string(x), "elixir_compiler")
      end)
     |> Enum.map(fn x ->
       apply(x, :module_info, [])
-     end)
+    end)
     |> Enum.filter(fn x->
       match(x, name)
-     end)
+    end)
     |> Enum.map(&name/1)
   end
 
