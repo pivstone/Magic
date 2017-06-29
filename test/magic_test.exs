@@ -33,15 +33,9 @@ defmodule MagicTest do
   end
 
   test "sigil_b with cd" do
-    ~b(. ls)c
-    assert_receive {_, {:data, "LICENSE\nREADME.md\n_build\nconfig\ndeps\ndoc\nlib\nmagic.iml\nmix.exs\nmix.lock\ntest\n"}}
+    ~b(./lib ls)c
+    assert_receive {_, {:data, "app.ex\nmagic.ex\nrandom.ex\nshotgun.ex\n"}}
     assert_receive {_, {:exit_status, 0}}
-  end
-
-  test "sigil_b undenfied cmd" do
-    ~b(. abcd)c
-    assert_receive {_, {:data, "sh: line 0: exec: abcd: not found\n"}}
-    assert_receive {_, {:exit_status, 127}}
   end
 
 
