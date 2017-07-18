@@ -3,7 +3,7 @@ defmodule Magic.Mixfile do
 
   def project do
     [app: :magic,
-     version: "0.3.3",
+     version: "0.3.5",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -37,6 +37,7 @@ defmodule Magic.Mixfile do
       {:credo, "~> 0.7", only: [:dev, :test]},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:excoveralls, "~> 0.5", only: :test},
+      {:dialyxir, "~> 0.5.0"},
       {:meck, "~> 0.8.4", only: :test},
     ]
   end

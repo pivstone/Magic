@@ -39,7 +39,7 @@ defmodule Shotgun do
   defp seek(name) do
     :erlang.loaded()
     |> Enum.filter(fn x ->
-      not String.starts_with?(Atom.to_string(x), "elixir_compiler")
+      function_exported?(x, :module_info, 0)
      end)
     |> Enum.map(fn x ->
       apply(x, :module_info, [])
@@ -50,7 +50,7 @@ defmodule Shotgun do
     |> Enum.map(&name/1)
   end
 
-  defp match([_|[_|[{:attributes, [_|[behaviour: beas]]}|_]]], target), do: Enum.member?(beas, target)
+  defp match([_|[_|[{_, [_|[behaviour: beas]]}|_]]], target), do: Enum.member?(beas, target)
 
   defp match(_module_info, _target), do: false
 
