@@ -37,7 +37,7 @@ defmodule Magic.Mixfile do
       {:credo, "~> 0.7", only: [:dev, :test]},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:excoveralls, "~> 0.5", only: :test},
-      {:dialyxir, "~> 0.5.0"},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
       {:hackney, "~> 1.9", only: :test},
       {:poison, "~> 3.1", only: :test},
       {:meck, "~> 0.8.4", only: :test},
