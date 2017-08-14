@@ -115,8 +115,6 @@ defmodule Magic do
         {:ok, output |> String.split("\n", trim: true)}
       {reason, _} ->
         raise reason
-      reason ->
-        raise reason
     end
   end
 end
