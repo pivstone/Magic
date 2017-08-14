@@ -52,6 +52,12 @@ iex> Shotgun.find(ABC)
 
 ## Http Request
 
+- if you want to use Http library, you need to add 
+ the dependency `{:hackney, "~> 1.9"}` , into the `deps()` at your project's mix.exs
+
+- if you want to auto parse Json, you need to add 
+ the dependency `{:poison, "~> 3.1"},` , into the `deps()` at your project's mix.exs
+
 ```sh
 iex> {:ok, rsp} = Http.get("https://registry-1.docker.io/v2/")
 iex> rsp.data
