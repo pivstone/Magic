@@ -34,7 +34,7 @@ defmodule MagicTest do
 
   test "sigil_b with cd" do
     ~b(./lib ls)c
-    assert_receive {_, {:data, "app.ex\nmagic.ex\nrandom.ex\nshotgun.ex\n"}}
+    assert_receive {_, {:data, "app.ex\nhttp.ex\nmagic.ex\nrandom.ex\nresponse.ex\nshotgun.ex\n"}}
     assert_receive {_, {:exit_status, 0}}
   end
 
@@ -44,7 +44,7 @@ defmodule MagicTest do
   end
 
   test "sigil_x undenfied cmd" do
-    assert_raise ErlangError, "erlang error: :enoent", fn ->
+    assert_raise ErlangError, "Erlang error: :enoent", fn ->
        ~x(. abcd)
     end
   end

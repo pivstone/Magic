@@ -3,7 +3,7 @@ defmodule Magic.Mixfile do
 
   def project do
     [app: :magic,
-     version: "0.3.5",
+     version: "0.3.7",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -38,13 +38,15 @@ defmodule Magic.Mixfile do
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:excoveralls, "~> 0.5", only: :test},
       {:dialyxir, "~> 0.5.0"},
+      {:hackney, "~> 1.9", only: :test},
+      {:poison, "~> 3.1", only: :test},
       {:meck, "~> 0.8.4", only: :test},
     ]
   end
 
   defp description do
     ~S"""
-    Some Elixir Utils for Port
+    A set of common libraries.
     """
   end
 

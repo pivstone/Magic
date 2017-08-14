@@ -41,7 +41,7 @@ defmodule Magic do
 
       iex> import Magic
       iex> ~x(./lib ls)c
-      {:ok, ["app.ex", "magic.ex", "random.ex", "shotgun.ex"]}
+      {:ok, ["app.ex", "http.ex", "magic.ex", "random.ex", "response.ex", "shotgun.ex"]}
 
   c = CD, 在指定路径执行命令
 
