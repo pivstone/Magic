@@ -21,6 +21,10 @@ erl_crash.dump
 
 .idea/
 
+.elixir/
+
+.elixir_ls/
+
 mix.lock
 
 magic.iml
