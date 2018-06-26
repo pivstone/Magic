@@ -43,7 +43,7 @@ defmodule Magic do
       iex> ~x(./lib ls)c
       {:ok, ["app.ex", "http.ex", "magic.ex", "random.ex", "response.ex", "shotgun.ex"]}
 
-  c = CD, 
+  c = CD,
   EN: change the current directory into a specific directory
   CN: 在指定路径执行命令
 
@@ -62,11 +62,13 @@ defmodule Magic do
       {:ok, ["123"]}
   """
   def sigil_q(term, modifiers) do
-    execute term, modifiers
-  catch
-    reason -> {:error, reason}
-  rescue
-    reason -> {:error, reason}
+    try do
+      execute term, modifiers
+    catch
+      reason -> {:error, reason}
+    rescue
+      reason -> {:error, reason}
+    end
   end
 
   @doc ~S"""
