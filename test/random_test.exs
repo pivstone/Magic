@@ -12,9 +12,11 @@ defmodule RandomTest do
   end
 
   test "test random result's randomness'" do
-    data = Enum.reduce(1..1000, %{} ,fn(_, acc) ->
-      Map.put(acc, random(), :a)
-    end)
-    assert data|> Map.keys |> Enum.count == 1000
+    data =
+      Enum.reduce(1..1000, %{}, fn _, acc ->
+        Map.put(acc, random(), :a)
+      end)
+
+    assert data |> Map.keys() |> Enum.count() == 1000
   end
 end

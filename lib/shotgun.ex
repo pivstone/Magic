@@ -40,19 +40,20 @@ defmodule Shotgun do
     :erlang.loaded()
     |> Enum.filter(fn x ->
       function_exported?(x, :module_info, 0)
-     end)
+    end)
     |> Enum.map(fn x ->
       apply(x, :module_info, [])
     end)
     |> Enum.filter(fn x ->
-      match x, name
+      match(x, name)
     end)
     |> Enum.map(&name/1)
   end
 
-  defp match([_|[_|[{_, [_|[behaviour: beas]]}|_]]], target), do: Enum.member?(beas, target)
+  defp match([_ | [_ | [{_, [_ | [behaviour: beas]]} | _]]], target),
+    do: Enum.member?(beas, target)
 
   defp match(_module_info, _target), do: false
 
-  defp name([{:module, name}|_]), do: name
+  defp name([{:module, name} | _]), do: name
 end

@@ -15,8 +15,8 @@ defmodule Random do
       "SpMkGZ5fvapMlvA8ALG8n3YQShPm91wB"
 
   """
-  @spec random :: String.t
-  def random, do: random 16
+  @spec random :: String.t()
+  def random, do: random(16)
 
   @doc """
   Random generate a specifc length string
@@ -29,8 +29,12 @@ defmodule Random do
       iex> Random.random("abd")
       ** (ArgumentError) size must be Integer, got abd
   """
-  @spec random(size :: non_neg_integer) :: String.t
-  def random(size) when is_integer(size) and size > 0, do: size |> :crypto.strong_rand_bytes |> Base.url_encode64 |> binary_part(0, size)
-  def random(size) when is_integer(size), do: raise ArgumentError, "size must be greater than ZERO, got #{size}"
-  def random(size), do: raise ArgumentError, "size must be Integer, got #{size}"
+  @spec random(size :: non_neg_integer) :: String.t()
+  def random(size) when is_integer(size) and size > 0,
+    do: size |> :crypto.strong_rand_bytes() |> Base.url_encode64() |> binary_part(0, size)
+
+  def random(size) when is_integer(size),
+    do: raise(ArgumentError, "size must be greater than ZERO, got #{size}")
+
+  def random(size), do: raise(ArgumentError, "size must be Integer, got #{size}")
 end

@@ -4,17 +4,17 @@ if Code.ensure_loaded?(:hackney) do
     This module provides some convenience method to take a http request.
     It is inspired by python-requests
     """
-    @workdir "#{System.tmp_dir}/accelerator/_download"
+    @workdir "#{System.tmp_dir()}/accelerator/_download"
 
     for x <- ~w(post put patch) do
       def unquote(:"#{x}")(url, headers, payload) do
-        request(:"#{unquote x}", url, headers, payload)
+        request(:"#{unquote(x)}", url, headers, payload)
       end
     end
 
     for x <- ~w(get delete head option) do
       def unquote(:"#{x}")(url, headers \\ []) do
-        request(:"#{unquote x}", url, headers)
+        request(:"#{unquote(x)}", url, headers)
       end
     end
 
@@ -45,25 +45,32 @@ if Code.ensure_loaded?(:hackney) do
     end
 
     defp response({:ok, code, raw_headers, clientRef}) do
-      headers = Enum.map(raw_headers, fn({x, y}) -> {String.downcase(x), y} end)
+      headers = Enum.map(raw_headers, fn {x, y} -> {String.downcase(x), y} end)
       parse_response({:ok, code, headers, headers, clientRef})
     end
 
     if Code.ensure_loaded?(Poison) do
-      defp parse_response({:ok, code, [{"content-type", "application/json; charset=utf-8"}|_], raw_headers, clientRef}) do
+      defp parse_response(
+             {:ok, code, [{"content-type", "application/json; charset=utf-8"} | _], raw_headers,
+              clientRef}
+           ) do
         json(code, raw_headers, clientRef)
       end
 
-      defp parse_response({:ok, code, [{"content-type", "application/json"}|_], raw_headers, clientRef}) do
+      defp parse_response(
+             {:ok, code, [{"content-type", "application/json"} | _], raw_headers, clientRef}
+           ) do
         json(code, raw_headers, clientRef)
       end
     end
-    
-    defp parse_response({:ok, code, [{"content-type", "application/octet-stream"}|_], raw_headers, clientRef}) do
+
+    defp parse_response(
+           {:ok, code, [{"content-type", "application/octet-stream"} | _], raw_headers, clientRef}
+         ) do
       file(code, raw_headers, clientRef)
     end
 
-    defp parse_response({:ok, code, [_|rest], raw_headers, clientRef}) do
+    defp parse_response({:ok, code, [_ | rest], raw_headers, clientRef}) do
       parse_response({:ok, code, rest, raw_headers, clientRef})
     end
 
@@ -82,8 +89,10 @@ if Code.ensure_loaded?(:hackney) do
         {:ok, data} ->
           File.write!(tmp_file, data, [:append, :binary])
           download(ref, tmp_file)
+
         :done ->
           {:ok, tmp_file}
+
         {:error, reason} ->
           {:error, reason}
       end
@@ -92,20 +101,23 @@ if Code.ensure_loaded?(:hackney) do
     defp json(code, headers, clientRef) do
       body =
         clientRef
-          |> :hackney.body
-          |> elem(1)
+        |> :hackney.body()
+        |> elem(1)
+
       data = Poison.decode!(body)
       {:ok, %Response{code: code, headers: headers, data: data, body: body}}
     end
 
     defp make_random_file do
       path = "#{@workdir}/"
+
       case File.mkdir_p(path) do
-         :ok ->
+        :ok ->
           path <> Random.random()
-         {:error, reason} ->
+
+        {:error, reason} ->
           raise reason
       end
     end
-   end
- end
+  end
+end

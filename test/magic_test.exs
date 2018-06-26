@@ -3,7 +3,7 @@ defmodule MagicTest do
   import Magic
   doctest Magic
 
-  defp_protected oops!, do: raise ArgumentError, "oops!"
+  defp_protected(oops!, do: raise(ArgumentError, "oops!"))
 
   test "sigil_x" do
     assert {:ok, ["123"]} = ~x{echo 123}s
@@ -38,14 +38,13 @@ defmodule MagicTest do
     assert_receive {_, {:exit_status, 0}}
   end
 
-
   test "sigil_q undenfied cmd" do
     assert {:error, %ErlangError{original: :enoent}} = ~q(. abcd)c
   end
 
   test "sigil_x undenfied cmd" do
     assert_raise ErlangError, "Erlang error: :enoent", fn ->
-       ~x(. abcd)
+      ~x(. abcd)
     end
   end
 

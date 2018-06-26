@@ -9,6 +9,6 @@ defmodule ShotgunTest do
     second = System.monotonic_time()
     assert Shotgun.find(Mix.SCM) == [Hex.SCM, Mix.SCM.Path, Mix.SCM.Git]
     third = System.monotonic_time()
-    assert (third - second) < (second - first)
+    assert third - second < second - first
   end
 end

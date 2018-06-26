@@ -21,9 +21,9 @@ erl_crash.dump
 
 .idea/
 
-.elixir/
+.elixir/*
 
-.elixir_ls/
+.elixir_ls/*
 
 mix.lock
 

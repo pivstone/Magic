@@ -21,7 +21,7 @@ defmodule Magic do
   defmacro defp_protected(head, body) do
     quote do
       defp unquote(head) do
-        unquote body[:do]
+        unquote(body[:do])
       catch
         reason -> {:error, reason}
       rescue
@@ -29,6 +29,7 @@ defmodule Magic do
       end
     end
   end
+
   @doc """
   EN: Execute a specific cmd, will raise a exception if the cmd don't exists or execute failed
   CN: 执行命令,如果命令不存在则会报错，或者命令执行失败
@@ -49,7 +50,7 @@ defmodule Magic do
 
   """
   def sigil_x(string, mod \\ []) do
-    execute string, mod
+    execute(string, mod)
   end
 
   @doc """
@@ -62,52 +63,47 @@ defmodule Magic do
       {:ok, ["123"]}
   """
   def sigil_q(term, modifiers) do
-    try do
-      execute term, modifiers
-    catch
-      reason -> {:error, reason}
-    rescue
-      reason -> {:error, reason}
-    end
+    execute(term, modifiers)
+  rescue
+    reason -> {:error, reason}
+  catch
+    reason -> {:error, reason}
   end
 
   @doc ~S"""
   Async Run cmd
   """
   def sigil_b(string, []) do
-     sigil_b string, [?s]
+    sigil_b(string, [?s])
   end
 
   def sigil_b(string, [mod]) when mod == ?s do
-    async_run string
+    async_run(string)
   end
 
   def sigil_b(string, [mod]) when mod == ?c do
-    [cd|cmd] = String.split string, " ", parts: 2
-    async_run hd(cmd), [cd: cd]
+    [cd | cmd] = String.split(string, " ", parts: 2)
+    async_run(hd(cmd), cd: cd)
   end
 
-  defp async_run(cmd, opts \\ [])do
-    opts = [:binary,
-            :exit_status,
-            {:parallelism, true},
-            :stderr_to_stdout] ++ opts
-    Port.open {:spawn, cmd}, opts
+  defp async_run(cmd, opts \\ []) do
+    opts = [:binary, :exit_status, {:parallelism, true}, :stderr_to_stdout] ++ opts
+    Port.open({:spawn, cmd}, opts)
   end
 
-  defp execute(string, [])do
-    execute string, [?s]
+  defp execute(string, []) do
+    execute(string, [?s])
   end
 
   defp execute(string, [mod]) when mod == ?s do
-    [cmd|args] = String.split string
-    run cmd, args
+    [cmd | args] = String.split(string)
+    run(cmd, args)
   end
 
   defp execute(string, [mod]) when mod == ?c do
-    [cd|other] = String.split string
-    [cmd|args] = other
-    run cmd, args, [cd: cd]
+    [cd | other] = String.split(string)
+    [cmd | args] = other
+    run(cmd, args, cd: cd)
   end
 
   defp execute(_string, _mods) do
@@ -115,9 +111,10 @@ defmodule Magic do
   end
 
   defp run(cmd, args, opts \\ []) do
-    case System.cmd cmd, args, [stderr_to_stdout: true] ++ opts do
+    case System.cmd(cmd, args, [stderr_to_stdout: true] ++ opts) do
       {output, 0} ->
         {:ok, output |> String.split("\n", trim: true)}
+
       {reason, _} ->
         raise reason
     end
