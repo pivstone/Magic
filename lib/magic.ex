@@ -7,7 +7,7 @@ defmodule Magic do
 
   transform them to normal output
 
-  Note: There are some critial performance issue
+  Note: There are may have some performance issues
 
   ## Examples:
 
@@ -30,8 +30,8 @@ defmodule Magic do
     end
   end
   @doc """
-
-  执行命令,如果命令不存在则会报错，或者命令执行失败
+  EN: Execute a specific cmd, will raise a exception if the cmd don't exists or execute failed
+  CN: 执行命令,如果命令不存在则会报错，或者命令执行失败
 
   ## Examples:
 
@@ -43,7 +43,9 @@ defmodule Magic do
       iex> ~x(./lib ls)c
       {:ok, ["app.ex", "http.ex", "magic.ex", "random.ex", "response.ex", "shotgun.ex"]}
 
-  c = CD, 在指定路径执行命令
+  c = CD, 
+  EN: change the current directory into a specific directory
+  CN: 在指定路径执行命令
 
   """
   def sigil_x(string, mod \\ []) do
@@ -51,7 +53,8 @@ defmodule Magic do
   end
 
   @doc """
-  执行命令,如果命令不存或者命令执行失败 不会抛错 而是返回 {:error,reason}
+  EN: Execute a specific cmd, when return {:error,reason} if the cmd don't exists or execute failed
+  CN: 执行命令,如果命令不存或者命令执行失败 不会抛错 而是返回 {:error,reason}
 
   ## Examples:
       iex> import Magic
